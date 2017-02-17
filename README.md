@@ -21,7 +21,7 @@ for _, project := range projects.Data {
 
 if projects.Paging.HasNext() {
   nextPage := strconv.Itoa(projects.Paging.GetNextPage())
-  nextProjects, \_, err := c.GetProjects(map[string]string{"page": nextPage})
+  nextProjects, _, err := c.GetProjects(map[string]string{"page": nextPage})
   ...
 }
 ```
