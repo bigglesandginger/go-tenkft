@@ -25,6 +25,7 @@ if projects.Paging.HasNext() {
   ...
 }
 ```
+- You can also use `MaxRetries` to automatically retry a request when the tenkft API
+returns an error.
 
- You can also use `MaxRetries` to automatically retry a request when the tenkft API
- returns an error.
+#### Full documentation: [godoc](https://godoc.org/github.com/workco/go-tenkft)

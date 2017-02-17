@@ -116,15 +116,6 @@ type User struct {
 	Assignments       Assignments `json:"assignments"`
 }
 
-// // MarshalJSON interface implementation
-// func (u *User) MarshalJSON() (bytes []byte, err error) {
-// 	newUser := &NewUser{}
-// 	newUser.FirstName = u.FirstName
-// 	newUser.LastName = u.LastName
-// 	bytes, err = json.Marshal(newUser)
-// 	return
-// }
-
 // Tags holds a collection of tags - only reachable from a user or project.
 type Tags struct {
 	Data   []*Tag  `json:"data"`
@@ -333,19 +324,3 @@ type BillRate struct {
 	Startdate    string  `json:"startdate"`
 	Enddate      string  `json:"enddate"`
 }
-
-// // Time extension
-// type Time struct {
-// 	time.Time
-// }
-//
-// // UnmarshalJSON interface
-// func (t *Time) UnmarshalJSON(b []byte) (err error) {
-// 	str := string(b)
-// 	if str == "null" || str == "" {
-// 		return
-// 	}
-//
-// 	err = t.Time.UnmarshalJSON(b)
-// 	return
-// }
