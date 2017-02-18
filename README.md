@@ -2,7 +2,7 @@
 
 tenkft is a golang package that provides a wrapper around the awesome https://www.10000ft.com API.
 
-All interactions with the tenkft API is done through the `*tenkft.Client` struct.
+All interactions with the tenkft API are done through the `*tenkft.Client` struct.
 
 ## Usage:
 
