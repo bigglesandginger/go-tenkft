@@ -154,6 +154,36 @@ func (c *Client) GetUsers(opts map[string]string) (users *Users, resp *http.Resp
 	return
 }
 
+// GetUser returns a user based on a user object's ID
+func (c *Client) GetUser(u *User, opts map[string]string) (resp *http.Response, err error) {
+	query := queryfy(opts)
+	url := c.env + "/users/" + strconv.Itoa(u.ID) + "?" + query
+	method, headers := http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(data, u)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 // GetAllUsers returns all users - automatically paginates and returns the accumulated collection.
 // resp and err correspond to the latest one in the loop.
 // URL https://github.com/10Kft/10kft-api/blob/master/sections/users.md#endpoint-apiv1users
