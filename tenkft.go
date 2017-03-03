@@ -783,3 +783,31 @@ func (c *Client) GetAllProjectBillRates(pID int, opts map[string]string) (billRa
 
 	return
 }
+
+// GetProjectUsers returns a project's users /projects/<id>/users
+func (c *Client) GetProjectUsers(pID int, opts map[string]string) (users *Users, resp *http.Response, err error) {
+	users = &Users{}
+	query := queryfy(opts)
+	url := c.env + "/projects/" + strconv.Itoa(pID) + "/users?" + query
+	method, headers := http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(bytes, users)
+
+	return
+}
