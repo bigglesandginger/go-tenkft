@@ -26,6 +26,28 @@ func TestGetProjectUsers(t *testing.T) {
 	p := projects.Data[0]
 	_, _, err := c.GetProjectUsers(p.ID, map[string]string{})
 	if err != nil {
-		t.Error("could not get project users", err)
+		t.Errorf("could not get project users: %v", err.Error())
+	}
+}
+
+func TestGetAllProjects(t *testing.T) {
+	projects, _, err := c.GetAllProjects(map[string]string{})
+	if err != nil {
+		t.Errorf("could not get all projects: %v", err.Error())
+	}
+
+	if len(projects.Data) == 0 {
+		fmt.Println("all projects returned an empty slice")
+	}
+}
+
+func TestGetAllUsers(t *testing.T) {
+	users, _, err := c.GetAllUsers(map[string]string{})
+	if err != nil {
+		t.Errorf("Could not get all users: %v", err.Error())
+	}
+
+	if len(users.Data) == 0 {
+		fmt.Println("all projects returned an empty slice")
 	}
 }

@@ -71,6 +71,7 @@ func queryfy(opts map[string]string) string {
 // GetAllProjects returns all projects - automatically paginates and returns accumulated projects.
 // resp and err correspond to the latest one in the loop.
 func (c *Client) GetAllProjects(opts map[string]string) (projects *Projects, resp *http.Response, err error) {
+	projects = &Projects{Paging: &Paging{}}
 	opts["per_page"] = "201"
 	projects, resp, err = c.GetProjects(opts)
 	if err != nil {
@@ -188,6 +189,7 @@ func (c *Client) GetUser(u *User, opts map[string]string) (resp *http.Response, 
 // resp and err correspond to the latest one in the loop.
 // URL https://github.com/10Kft/10kft-api/blob/master/sections/users.md#endpoint-apiv1users
 func (c *Client) GetAllUsers(opts map[string]string) (users *Users, resp *http.Response, err error) {
+	users = &Users{Paging: &Paging{}}
 	opts["per_page"] = "201"
 	users, resp, err = c.GetUsers(opts)
 	if err != nil {
