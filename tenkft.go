@@ -96,7 +96,7 @@ func (c *Client) GetAllProjects(opts map[string]string) (projects *Projects, res
 
 // GetProjects returns all projects with default pagination
 func (c *Client) GetProjects(opts map[string]string) (projects *Projects, resp *http.Response, err error) {
-	projects = &Projects{}
+	projects = &Projects{Paging: &Paging{}}
 	query := queryfy(opts)
 	url, method, headers := c.env+"/projects?"+query, http.MethodGet, map[string]string{"auth": c.token}
 
@@ -127,7 +127,7 @@ func (c *Client) GetProjects(opts map[string]string) (projects *Projects, resp *
 // GetUsers returns all users - manual pagination per opts paramater
 // URL https://github.com/10Kft/10kft-api/blob/master/sections/users.md#endpoint-apiv1users
 func (c *Client) GetUsers(opts map[string]string) (users *Users, resp *http.Response, err error) {
-	users = &Users{}
+	users = &Users{Paging: &Paging{}}
 	query := queryfy(opts)
 	url, method, headers := c.env+"/users?"+query, http.MethodGet, map[string]string{"auth": c.token}
 
