@@ -108,7 +108,7 @@ type User struct {
 	LoginType         string      `json:"login_type"`
 	OfficePhone       interface{} `json:"office_phone"`
 	TerminationDate   string      `json:"termination_date"`
-	Thumbnail         interface{} `json:"thumbnail"`
+	Thumbnail         string      `json:"thumbnail"`
 	Type              string      `json:"type"`
 	UserSettings      float64     `json:"user_settings"`
 	UserTypeID        int         `json:"user_type_id"`
