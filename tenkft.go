@@ -124,6 +124,36 @@ func (c *Client) GetProjects(opts map[string]string) (projects *Projects, resp *
 	return
 }
 
+// GetTimeEntries returns all time entries with default pagination
+func (c *Client) GetTimeEntries(opts map[string]string) (timeEntries *TimeEntries, resp *http.Response, err error) {
+	timeEntries = &TimeEntries{Paging: &Paging{}}
+	query := queryfy(opts)
+	url, method, headers := c.env+"/time_entries?"+query, http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(data, timeEntries)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 // GetUsers returns all users - manual pagination per opts paramater
 // URL https://github.com/10Kft/10kft-api/blob/master/sections/users.md#endpoint-apiv1users
 func (c *Client) GetUsers(opts map[string]string) (users *Users, resp *http.Response, err error) {
@@ -405,7 +435,8 @@ func (c *Client) GetUserAssignments(u *User, opts map[string]string) (assignment
 }
 
 // GetProjectAssignments retrieves all assignments for a project
-func (c *Client) GetProjectAssignments(p *Project, opts map[string]string) (assignments Assignments, resp *http.Response, err error) {
+func (c *Client) GetProjectAssignments(p *Project, opts map[string]string) (assignments *Assignments, resp *http.Response, err error) {
+	assignments = &Assignments{}
 	query := queryfy(opts)
 	url := c.env + "/projects/" + strconv.Itoa(p.ID) + "/assignments?" + query
 	method := http.MethodGet
@@ -810,6 +841,91 @@ func (c *Client) GetProjectUsers(pID int, opts map[string]string) (users *Users,
 	}
 
 	err = json.Unmarshal(bytes, users)
+
+	return
+}
+
+GetDisciplines
+GetApprovals
+p
+
+// GetApprovals returns all Approval types for an account.
+func (c *Client) GetApprovals(opts map[string]string) (approvals *Approvals, resp *http.Response, err error) {
+	approvals = &Approvals{}
+	query := queryfy(opts)
+	url, method, headers := c.env+"/approvals?"+query, http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(bytes, approvals)
+
+	return
+}
+
+// GetHolidays returns all Holiday types for an account.
+func (c *Client) GetHolidays(opts map[string]string) (holidays *Holidays, resp *http.Response, err error) {
+	holidays = &Holidays{}
+	query := queryfy(opts)
+	url, method, headers := c.env+"/holidays?"+query, http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(bytes, holidays)
+
+	return
+}
+
+// GetDisciplines returns all Discipline types for an account.
+func (c *Client) GetDisciplines(opts map[string]string) (disciplines *Disciplines, resp *http.Response, err error) {
+	disciplines = &Disciplines{}
+	query := queryfy(opts)
+	url, method, headers := c.env+"/disciplines?"+query, http.MethodGet, map[string]string{"auth": c.token}
+
+	fetcher, err := utils.NewFetchOpts(url, method, "", headers, c.MaxRetries)
+	if err != nil {
+		return
+	}
+
+	resp, err = fetcher.Fetch()
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(bytes, disciplines)
 
 	return
 }

@@ -77,16 +77,16 @@ type Project struct {
 }
 
 type baseUser struct {
-	Archived          bool        `json:"archived,omitempty"`
-	Discipline        string      `json:"discipline"`
-	Email             string      `json:"email"`
-	FirstName         string      `json:"first_name"`
-	HireDate          interface{} `json:"hire_date"`
-	LastName          string      `json:"last_name"`
-	Location          string      `json:"location"`
-	MobilePhone       interface{} `json:"mobile_phone"`
-	Role              string      `json:"role"`
-	BillabilityTarget float64     `json:"billability_target"`
+	Archived          bool    `json:"archived,omitempty"`
+	Discipline        string  `json:"discipline"`
+	Email             string  `json:"email"`
+	FirstName         string  `json:"first_name"`
+	HireDate          string  `json:"hire_date"`
+	LastName          string  `json:"last_name"`
+	Location          string  `json:"location"`
+	MobilePhone       string  `json:"mobile_phone"`
+	Role              string  `json:"role"`
+	BillabilityTarget float64 `json:"billability_target"`
 }
 
 // User abstraction to the /user schema
@@ -106,7 +106,7 @@ type User struct {
 	ID                int         `json:"id"`
 	InvitationPending bool        `json:"invitation_pending"`
 	LoginType         string      `json:"login_type"`
-	OfficePhone       interface{} `json:"office_phone"`
+	OfficePhone       string      `json:"office_phone"`
 	TerminationDate   string      `json:"termination_date"`
 	Thumbnail         string      `json:"thumbnail"`
 	Type              string      `json:"type"`
@@ -323,4 +323,67 @@ type BillRate struct {
 	UpdatedAt    string  `json:"updated_at"`
 	Startdate    string  `json:"startdate"`
 	Enddate      string  `json:"enddate"`
+}
+
+type TimeEntries struct {
+	Data   []*TimeEntry `json:"data"`
+	Paging *Paging      `json:"paging"`
+}
+
+type TimeEntry struct {
+	Task           string  `json:"task"`
+	ScheduledHours float64 `json:"scheduled_hours"`
+	Hours          float64 `json:"hours"`
+	BillRateID     int     `json:"bill_rate_id"`
+	AssignableID   int     `json:"assignable_id"`
+	UpdatedAt      string  `json:"updated_at"`
+	ID             int     `json:"id": 591986688`
+	BillRate       float64 `json:"bill_rate"`
+	Notes          string  `json:"notes"`
+	UserID         int     `json:"user_id"`
+	IsSuggestion   bool    `json:"is_suggestion"`
+	Date           string  `json:"date"`
+	CreatedAt      string  `json:"created_at"`
+	AssignableType string  `json:"assignable_type"`
+}
+
+type Holidays struct {
+	Data   []*Holiday `json:"data"`
+	Paging *Paging    `json:"paging"`
+}
+
+type Holiday struct {
+	UpdatedAt string `json:"updated_at"`
+	Date      string `json:"date"`
+	Name      string `json:"name"`
+	CreatedAt string `json:"created_at"`
+	ID        int    `json:"id"`
+}
+
+type Approvals struct {
+	Data   []*Approval `json:"data"`
+	Paging *Paging     `json:"paging"`
+}
+
+type Approval struct {
+	ApprovedAt     string `json:"approved_at"`
+	ApprovedBy     int    `json:"approved_by"`
+	Status         string `json:"status"`
+	ApprovableType string `json:"approvable_type"`
+	ApprovableId   int    `json:"approvable_id"`
+	ID             int    `json:"id"`
+	UpdatedAt      string `json:"updated_at"`
+	SubmittedAt    string `json:"submitted_at"`
+	CreatedAt      string `json:"created_at"`
+	SubmittedBy    int    `json:"submitted_by"`
+}
+
+type Disciplines struct {
+	Data   []*Discipline `json:"data"`
+	Paging *Paging       `json:"paging"`
+}
+
+type Discipline struct {
+	Value string `json:"value"`
+	ID    int    `json:"id"`
 }
