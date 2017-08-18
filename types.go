@@ -92,28 +92,29 @@ type baseUser struct {
 // User abstraction to the /user schema
 type User struct {
 	*baseUser
-	AccountOwner      bool        `json:"account_owner"`
-	ArchivedAt        string      `json:"archived_at"`
-	Billable          bool        `json:"billable"`
-	Billrate          float64     `json:"billrate"`
-	CreatedAt         string      `json:"created_at"`
-	Deleted           bool        `json:"deleted"`
-	DeletedAt         string      `json:"deleted_at"`
-	DisplayName       string      `json:"display_name"`
-	EmployeeNumber    interface{} `json:"employee_number"`
-	GUID              string      `json:"guid"`
-	HasLogin          bool        `json:"has_login"`
-	ID                int         `json:"id"`
-	InvitationPending bool        `json:"invitation_pending"`
-	LoginType         string      `json:"login_type"`
-	OfficePhone       string      `json:"office_phone"`
-	TerminationDate   string      `json:"termination_date"`
-	Thumbnail         string      `json:"thumbnail"`
-	Type              string      `json:"type"`
-	UserSettings      float64     `json:"user_settings"`
-	UserTypeID        int         `json:"user_type_id"`
-	Tags              Tags        `json:"tags"`
-	Assignments       Assignments `json:"assignments"`
+	AccountOwner      bool           `json:"account_owner"`
+	ArchivedAt        string         `json:"archived_at"`
+	Billable          bool           `json:"billable"`
+	Billrate          float64        `json:"billrate"`
+	CreatedAt         string         `json:"created_at"`
+	Deleted           bool           `json:"deleted"`
+	DeletedAt         string         `json:"deleted_at"`
+	DisplayName       string         `json:"display_name"`
+	EmployeeNumber    interface{}    `json:"employee_number"`
+	GUID              string         `json:"guid"`
+	HasLogin          bool           `json:"has_login"`
+	ID                int            `json:"id"`
+	InvitationPending bool           `json:"invitation_pending"`
+	LoginType         string         `json:"login_type"`
+	OfficePhone       string         `json:"office_phone"`
+	TerminationDate   string         `json:"termination_date"`
+	Thumbnail         string         `json:"thumbnail"`
+	Type              string         `json:"type"`
+	UserSettings      float64        `json:"user_settings"`
+	UserTypeID        int            `json:"user_type_id"`
+	Tags              Tags           `json:"tags"`
+	Assignments       Assignments    `json:"assignments"`
+	Availabilities    Availabilities `json:"availabilities"`
 }
 
 // Tags holds a collection of tags - only reachable from a user or project.
@@ -130,6 +131,29 @@ type baseTag struct {
 type Tag struct {
 	*baseTag
 	ID int `json:"id"`
+}
+
+// Tags holds a collection of tags - only reachable from a user or project.
+type Availabilities struct {
+	Data   []*Availability `json:"data"`
+	Paging *Paging         `json:"paging"`
+}
+
+// Tag holds a tag - only reachable from a user or a project.
+type Availability struct {
+	ID        int     `json:"id"`
+	UserID    int     `json:"user_id"`
+	StartsAt  string  `json:"starts_at"`
+	EndsAt    string  `json:"ends_at"`
+	Day0      float64 `json:"day0"`
+	Day1      float64 `json:"day1"`
+	Day2      float64 `json:"day2"`
+	Day3      float64 `json:"day3"`
+	Day4      float64 `json:"day4"`
+	Day5      float64 `json:"day5"`
+	Day6      float64 `json:"day6"`
+	CreatedAt string  `json:"created_at"`
+	UpdatedAt string  `json:"updated_at"`
 }
 
 // Users holds a collection of users and also indicates whether paginating is available.

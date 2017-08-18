@@ -845,10 +845,6 @@ func (c *Client) GetProjectUsers(pID int, opts map[string]string) (users *Users,
 	return
 }
 
-GetDisciplines
-GetApprovals
-p
-
 // GetApprovals returns all Approval types for an account.
 func (c *Client) GetApprovals(opts map[string]string) (approvals *Approvals, resp *http.Response, err error) {
 	approvals = &Approvals{}
